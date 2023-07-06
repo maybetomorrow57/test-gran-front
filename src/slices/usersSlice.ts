@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from '../store';
+import { AppThunk } from '../store';
 import { toast } from 'react-toastify';
 import type { User, UserWithoutId } from '../models/User';
 import webConfig from '../webConfig';
-
 
 export interface UsersState {
     users: User[];
@@ -56,9 +55,16 @@ export const usersSlice = createSlice({
     },
 });
 
-
-export const { fetchUsersSuccess, selectUser, deleteUserSuccess, openAddUserForm, openEditUserForm, closeUserForm, addUserSuccess, editUserSuccess } = usersSlice.actions;
-
+export const { 
+    fetchUsersSuccess, 
+    selectUser, 
+    deleteUserSuccess, 
+    openAddUserForm, 
+    openEditUserForm, 
+    closeUserForm, 
+    addUserSuccess, 
+    editUserSuccess 
+} = usersSlice.actions;
 
 export const fetchUsers = (): AppThunk => {
     return async (dispatch) => {
@@ -143,6 +149,5 @@ export const editUser = (userId: number, data: UserWithoutId): AppThunk => {
         }
     };
 };
-
 
 export default usersSlice.reducer;

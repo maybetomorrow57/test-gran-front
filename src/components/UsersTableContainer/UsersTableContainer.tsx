@@ -1,13 +1,12 @@
 import React from 'react';
-import '../styles/UsersTableContainer.scss';
-import { useAppSelector, useAppDispatch } from '../hooks';
+import './UsersTableContainer.scss';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import { useState, useEffect } from 'react';
-import { fetchUsers, selectUser, deleteUser, openAddUserForm, openEditUserForm } from '../slices/usersSlice';
-import UsersTable from './UsersTable';
-import sortTop from '../functions/sortTop';
-import sortDown from '../functions/sortDown';
-import UsersTableControls from './UsersTableControls';
-
+import { fetchUsers, selectUser, deleteUser, openAddUserForm, openEditUserForm } from '../../slices/usersSlice';
+import UsersTable from '../UsersTable/UsersTable';
+import sortTop from '../../functions/sortTop';
+import sortDown from '../../functions/sortDown';
+import UsersTableControls from '../UsersTableControls/UsersTableControls';
 
 const UsersTableContainer: React.FC = () => {
     const users = useAppSelector(state => state.users.users);
@@ -18,7 +17,7 @@ const UsersTableContainer: React.FC = () => {
 
     useEffect(() => {
         dispatch(fetchUsers());
-    }, []);
+    }, [dispatch]);
 
     const handleSelectUser = (userId: number) => {
         dispatch(selectUser(userId));

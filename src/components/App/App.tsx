@@ -1,10 +1,9 @@
 import React from 'react';
 import "react-toastify/dist/ReactToastify.min.css";
-import '../styles/App.scss';
+import './App.scss';
 import { ToastContainer } from "react-toastify";
-import UsersTableContainer from "./UsersTableContainer";
-import AddEditUserFormWrapper from './AddEditUserFormWrapper';
-
+import UsersTableContainer from "../UsersTableContainer/UsersTableContainer";
+import AddEditUserFormWrapper from '../AddEditUserFormWrapper/AddEditUserFormWrapper';
 
 const App: React.FC = () => {
     

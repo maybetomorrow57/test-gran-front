@@ -1,7 +1,7 @@
 import React from 'react';
-import type { User } from "../models/User";
-import VisualSort from "./VisualSort";
-
+import './UsersTable.scss';
+import type { User } from "../../models/User";
+import VisualSort from "../VisualSort/VisualSort";
 
 interface Props {
     users: User[];
@@ -12,9 +12,7 @@ interface Props {
     handleSort: (field: string) => void;
 }
 
-
 const UsersTable: React.FC<Props> = ({users, handleSelectUser, selectedUserId, sortField, sortType, handleSort}) => {
-    
     return (
         <div className="users-table">
             <table>
@@ -39,7 +37,11 @@ const UsersTable: React.FC<Props> = ({users, handleSelectUser, selectedUserId, s
                 </thead>
                 <tbody>
                     {users.map(user => (
-                        <tr key={user.id} onClick={() => handleSelectUser(user.id)} className={selectedUserId === user.id ? "selected" : ""}>
+                        <tr 
+                            key={user.id} 
+                            onClick={() => handleSelectUser(user.id)} 
+                            className={selectedUserId === user.id ? "selected" : ""}
+                        >
                             <td>{user.login}</td>
                             <td>{user.email}</td>
                             <td>{user.country}</td>

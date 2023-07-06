@@ -1,7 +1,6 @@
 import React from "react";
-import { useAppSelector } from "../hooks";
-import AddEditUserForm from "./AddEditUserForm";
-
+import { useAppSelector } from "../../hooks";
+import AddEditUserForm from "../AddEditUserForm/AddEditUserForm";
 
 const AddEditUserFormWrapper: React.FC = () => {
     const showAddEditForm = useAppSelector(state => state.users.showAddEditForm);
@@ -13,7 +12,6 @@ const AddEditUserFormWrapper: React.FC = () => {
             {showAddEditForm ? (<AddEditUserForm mode={formMode} selectedUserId={selectedUserId} />) : null}
         </>
     );
-
 };
 
 export default AddEditUserFormWrapper;

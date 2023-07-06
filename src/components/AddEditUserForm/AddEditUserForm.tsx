@@ -1,23 +1,20 @@
 import React from "react";
-import '../styles/AddEditUserForm.scss';
+import './AddEditUserForm.scss';
 import { useId, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import type { UserWithoutId } from "../models/User";
-import { useAppDispatch } from "../hooks";
-import { addUser, closeUserForm, editUser } from "../slices/usersSlice";
-import webConfig from "../webConfig";
-
+import type { UserWithoutId } from "../../models/User";
+import { useAppDispatch } from "../../hooks";
+import { addUser, closeUserForm, editUser } from "../../slices/usersSlice";
+import webConfig from "../../webConfig";
 
 interface Props {
     mode: "add" | "edit";
     selectedUserId: number | null;
 }
 
-
 const AddEditUserForm: React.FC<Props> = ({mode, selectedUserId}) => {
     const identifier = useId();
-
     const formik = useFormik({
         initialValues: {
             login: "",
@@ -31,7 +28,7 @@ const AddEditUserForm: React.FC<Props> = ({mode, selectedUserId}) => {
                 .required("Укажите Логин"),
             email: Yup.string()
                 .matches(
-                    /^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/u, 
+                    /^((([0-9A-Za-z]{1}[-0-9A-z.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/u, 
                     "Неверный формат email"
                 )
                 .required("Укажите email"),
@@ -53,6 +50,8 @@ const AddEditUserForm: React.FC<Props> = ({mode, selectedUserId}) => {
     });
     const dispatch = useAppDispatch();
 
+    const setFieldValue = formik.setFieldValue;
+
     useEffect(() => {
         if (mode === "edit" && selectedUserId !== null) {
             fetch(`${webConfig.baseURL}/user?userId=${selectedUserId}`)
@@ -65,12 +64,16 @@ const AddEditUserForm: React.FC<Props> = ({mode, selectedUserId}) => {
                 .then(result => {
                     const fields = ["login", "email", "country", "sex", "age"];
                     fields.forEach(field => {
-                        formik.setFieldValue(field, result[field], false);
+                        if (field === "age" && result[field] === 0 ) {
+                            setFieldValue(field, "", false);
+                            return;
+                        }
+                        setFieldValue(field, result[field], false);
                     });
                 })
                 .catch(error => console.log(error.message));
         }
-    }, []);
+    }, [setFieldValue, mode, selectedUserId]);
 
     const handleClose = () => {
         dispatch(closeUserForm());
@@ -98,8 +101,8 @@ const AddEditUserForm: React.FC<Props> = ({mode, selectedUserId}) => {
                         <label>Sex</label>
                         <select {...formik.getFieldProps("sex")}>
                             <option value="">Выберите пол</option>
-                            <option value="male">Мужской</option>
-                            <option value="female">Женский</option>
+                            <option value="male">male</option>
+                            <option value="female">female</option>
                         </select>
                     </div>
                     <div className="form-row">
@@ -117,7 +120,6 @@ const AddEditUserForm: React.FC<Props> = ({mode, selectedUserId}) => {
             </div>
         </div>
     );
-
 };
 
 export default AddEditUserForm;

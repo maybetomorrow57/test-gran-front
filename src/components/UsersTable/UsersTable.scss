@@ -1,0 +1,32 @@
+@use "../../styles/variables" as *;
+
+.users-table {
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        tr {
+            cursor: pointer;
+            th {
+                border: 1px solid #808080;
+                padding: 15px 25px 15px 5px;
+                background-color: $theme-main-color;
+                color: #fff;
+                position: relative;
+            }
+            td {
+                border: 1px solid #808080;
+                padding: 5px;
+                text-align: center;
+            }
+        }
+        tbody {
+            tr:nth-child(2n) {
+                background-color: rgba(177, 209, 220, 0.2); 
+            }
+        }
+        .selected {
+            background-color: $accent-color !important;
+        }
+    }
+}

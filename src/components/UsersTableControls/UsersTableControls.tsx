@@ -1,8 +1,8 @@
 import React from "react";
-import { ReactComponent as AddImage } from "../styles/images/add.svg";
-import { ReactComponent as EditImage } from "../styles/images/edit.svg";
-import { ReactComponent as DeleteImage } from "../styles/images/close.svg";
-
+import './UsersTableControls.scss';
+import { ReactComponent as AddImage } from "../../styles/images/add.svg";
+import { ReactComponent as EditImage } from "../../styles/images/edit.svg";
+import { ReactComponent as DeleteImage } from "../../styles/images/close.svg";
 
 interface Props {
     editDisabled: boolean;
@@ -13,7 +13,6 @@ interface Props {
 }
 
 const UsersTableControls: React.FC<Props> = ({editDisabled, deleteDisabled, handleAdd, handleEdit, handleDelete}) => {
-
     return (
         <div className="users-table-controls">   
             <button type="button" className="btn-picture" onClick={handleAdd}>
@@ -27,7 +26,6 @@ const UsersTableControls: React.FC<Props> = ({editDisabled, deleteDisabled, hand
             </button>
         </div>
     );
-
 };
 
 export default UsersTableControls;
